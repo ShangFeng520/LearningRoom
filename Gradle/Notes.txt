@@ -1,0 +1,11 @@
+gradle一些有用的操作
+1、自定义APK文件名（在module级build.gradle文件的android闭包中）
+	applicationVariants.all{variant->
+        variant.outputs.all {
+            if (variant.buildType.name == 'release') {
+                def releaseTime=new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+                def fileName="googlePlay_BOG_v${variant.versionName}_c${variant.versionCode}_${releaseTime}_prd_by_sf"
+                outputFileName = fileName
+            }
+        }
+    }
