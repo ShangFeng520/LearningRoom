@@ -11,4 +11,20 @@ gradle一些有用的操作
     }
 2、清理无用的资源和代码
 3、多渠道构建
+	重要方法：
+	a)、替换AndroidManifest中的字段,使用manifestPlaceHolders
+		步骤：
+			第一步：在ProductFlavors的域对象中，定义manifestPlaceholders=[key:value]
+			第二步：在AndroidManifest中，使用${key}
+	b)、替换代码中的字段，使用自定义BuildConfig类中的字段
+		步骤：
+			第一步：在ProductFlavors的域对象中，自定义buildConfigField type，name，value
+			第二步：在代码中引用，BuildConfig.name
+	c）、替换value资源文件，使用resValue
+		步骤：
+			第一步：在ProductFlavors的域对象中，自定义resValue type，name，value
+			第二步：引用方式为R.string.name或者@string/name
+	d)、resConfig
+	***合并规则***：
+	1、资源文件合并
 4、混淆
