@@ -1,4 +1,4 @@
-gradle一些有用的操作
+﻿gradle一些有用的操作
 1、自定义APK文件名（在module级build.gradle文件的android闭包中）
 	applicationVariants.all{variant->
         variant.outputs.all {
@@ -11,7 +11,15 @@ gradle一些有用的操作
     }
 2、清理无用的资源和代码
 3、多渠道构建
-	重要方法：
+	***重要概念***
+	a)、源集
+		src/main/ 此源集包含所有编译变体共用的代码和资源
+		src/buildType/ 创建此源集可添加特定版本类型专用的代码和资源
+		src/productFlavor/ 创建此源集可添加特定渠道专用的代码和资源
+		src/productFlavorBuildType/ 创建此源集可添加特定编译变体专用的代码和资源
+	如果不同源集包含同一文件的不同版本，Gradle 将按以下优先顺序决定使用哪一个文件（左侧源集会替换右侧源集的文件和设置）
+		编译变体 > 编译版本类型 > 渠道类型 > 主源集 > 库依赖项
+	***重要方法***
 	a)、替换AndroidManifest中的字段,使用manifestPlaceHolders
 		步骤：
 			第一步：在ProductFlavors的域对象中，定义manifestPlaceholders=[key:value]
@@ -20,11 +28,15 @@ gradle一些有用的操作
 		步骤：
 			第一步：在ProductFlavors的域对象中，自定义buildConfigField type，name，value
 			第二步：在代码中引用，BuildConfig.name
-	c）、替换value资源文件，使用resValue
+	c)、替换value资源文件，使用resValue
 		步骤：
 			第一步：在ProductFlavors的域对象中，自定义resValue type，name，value
 			第二步：引用方式为R.string.name或者@string/name
 	d)、resConfig
+	e)、在顶级build.gradle添加ext代码块（因会导致模块耦合，使得单独的模块导出困难，并降低多模块编译速度，应尽量避免）
+	               步骤：
+			第一步：将额外属性添加到顶级 build.gradle 文件中的 ext 代码块，ext{ supportLibVersion = "28.0.0"}
+			第二步：在项目级build.gradle通过rootProject.ext.property_name进行引用，compileSdkVersion rootProject.ext.compileSdkVersion
 	***合并规则***：
 	1、资源文件合并
 4、混淆
