@@ -4,7 +4,7 @@
         variant.outputs.all {
             if (variant.buildType.name == 'release') {
                 def releaseTime=new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
-                def fileName="googlePlay_BOG_v${variant.versionName}_c${variant.versionCode}_${releaseTime}_prd_by_sf"
+                def fileName="${variant.flavor}_BOG_v${variant.versionName}_c${variant.versionCode}_${releaseTime}_prd_by_sf.apk"
                 outputFileName = fileName
             }
         }
@@ -38,5 +38,8 @@
 			第一步：将额外属性添加到顶级 build.gradle 文件中的 ext 代码块，ext{ supportLibVersion = "28.0.0"}
 			第二步：在项目级build.gradle通过rootProject.ext.property_name进行引用，compileSdkVersion rootProject.ext.compileSdkVersion
 	***合并规则***：
-	1、资源文件合并
+	1、清单合并规则
+		合并冲突会报错，此时需应用合并规则标记解决冲突；
+	2、资源合并规则
+	3、代码合并规则
 4、混淆
