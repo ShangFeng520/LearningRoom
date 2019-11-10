@@ -32,7 +32,7 @@
 		步骤：
 			第一步：在ProductFlavors的域对象中，自定义resValue type，name，value
 			第二步：引用方式为R.string.name或者@string/name
-	d)、resConfig
+	d)、使用resConfig，限定该编译变体支持的语言、屏幕密度等配置
 	e)、在顶级build.gradle添加ext代码块（因会导致模块耦合，使得单独的模块导出困难，并降低多模块编译速度，应尽量避免）
 	               步骤：
 			第一步：将额外属性添加到顶级 build.gradle 文件中的 ext 代码块，ext{ supportLibVersion = "28.0.0"}
